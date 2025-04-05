@@ -162,7 +162,7 @@ const PDF = () => {
         doc.text("Ration Chart", 105, yPos, { align: "center" });
         yPos += 8;
         doc.setFontSize(10);
-        doc.text(`Month: ${selectedMonth} / ${selectedYear}`, 105, yPos, {
+        doc.text(`Month: ${monthMapping[selectedMonth]} / ${selectedYear}`, 105, yPos, {
             align: "center",
         });
         yPos += 10;
@@ -229,7 +229,7 @@ const PDF = () => {
         doc.text(
             "Total Headcount",
             (colX[1] + colX[6]) / 2,
-            headerY + row1Height / 2 + 3,
+            headerY + row1Height / 2 + 1,
             { align: "center" }
         );
 
@@ -238,7 +238,7 @@ const PDF = () => {
         doc.text(
             "Egg Cost",
             (colX[6] + colX[11]) / 2,
-            headerY + row1Height / 2 + 3,
+            headerY + row1Height / 2 + 1,
             { align: "center" }
         );
 
@@ -247,7 +247,7 @@ const PDF = () => {
         doc.text(
             "Veg Cost",
             (colX[11] + colX[16]) / 2,
-            headerY + row1Height / 2 + 3,
+            headerY + row1Height / 2 + 1,
             { align: "center" }
         );
 
@@ -256,14 +256,14 @@ const PDF = () => {
         doc.text(
             "Misc",
             (colX[16] + colX[17]) / 2,
-            headerY + totalHeaderHeight / 2 + 3,
+            headerY + totalHeaderHeight / 2 + 1,
             { align: "center" }
         );
 
         // "Grand Total" merged vertically (rows 1-3)
         doc.rect(colX[17], headerY, colX[18] - colX[17], totalHeaderHeight);
         doc.text(
-            "G. Total",
+            "Grand \nTotal",
             (colX[17] + colX[18]) / 2,
             headerY + totalHeaderHeight / 2 + 3,
             { align: "center" }
@@ -277,21 +277,22 @@ const PDF = () => {
         doc.text(
             "Mother",
             (colX[1] + colX[2]) / 2,
-            row2Y + (row2Height + row3Height) / 2 + 3,
-            { align: "center" }
+            row2Y + (row2Height + row3Height) / 2 + 6,
+            null,90
         );
         // "Child" (merged horizontally over cells 2 to 4, to be subdivided in row 3)
         doc.rect(colX[2], row2Y, colX[4] - colX[2], row2Height);
-        doc.text("Child", (colX[2] + colX[4]) / 2, row2Y + row2Height / 2 + 3, {
+        doc.text("Child", (colX[2] + colX[4]) / 2, row2Y + row2Height / 2 + 1, {
             align: "center",
         });
-        // "Worker" (merged vertically over rows 2-3)
+        // "Worker/\nHelper" (merged vertically over rows 2-3)
         doc.rect(colX[4], row2Y, colX[5] - colX[4], row2Height + row3Height);
         doc.text(
-            "Worker",
+            "Worker/\nHelper",
             (colX[4] + colX[5]) / 2,
-            row2Y + (row2Height + row3Height) / 2 + 3,
-            { align: "center" }
+            row2Y + (row2Height + row3Height) / 2 + 6,
+            null,
+            90
         );
         // "Total" (merged vertically over rows 2-3)
         doc.rect(colX[5], row2Y, colX[6] - colX[5], row2Height + row3Height);
@@ -308,18 +309,18 @@ const PDF = () => {
             "Mother",
             (colX[6] + colX[7]) / 2,
             row2Y + (row2Height + row3Height) / 2 + 3,
-            { align: "center" }
+            null,90
         );
         doc.rect(colX[7], row2Y, colX[9] - colX[7], row2Height);
-        doc.text("Child", (colX[7] + colX[9]) / 2, row2Y + row2Height / 2 + 3, {
+        doc.text("Child", (colX[7] + colX[9]) / 2, row2Y + row2Height / 2 + 1, {
             align: "center",
         });
         doc.rect(colX[9], row2Y, colX[10] - colX[9], row2Height + row3Height);
         doc.text(
-            "Worker",
+            "Worker/\nHelper",
             (colX[9] + colX[10]) / 2,
-            row2Y + (row2Height + row3Height) / 2 + 3,
-            { align: "center" }
+            row2Y + (row2Height + row3Height) / 2 + 6,
+            null,90
         );
         doc.rect(colX[10], row2Y, colX[11] - colX[10], row2Height + row3Height);
         doc.text(
@@ -335,18 +336,18 @@ const PDF = () => {
             "Mother",
             (colX[11] + colX[12]) / 2,
             row2Y + (row2Height + row3Height) / 2 + 3,
-            { align: "center" }
+            null,90
         );
         doc.rect(colX[12], row2Y, colX[14] - colX[12], row2Height);
-        doc.text("Child", (colX[12] + colX[14]) / 2, row2Y + row2Height / 2 + 3, {
+        doc.text("Child", (colX[12] + colX[14]) / 2, row2Y + row2Height / 2 + 1, {
             align: "center",
         });
         doc.rect(colX[14], row2Y, colX[15] - colX[14], row2Height + row3Height);
         doc.text(
-            "Worker",
+            "Worker/\nHelper",
             (colX[14] + colX[15]) / 2,
-            row2Y + (row2Height + row3Height) / 2 + 3,
-            { align: "center" }
+            row2Y + (row2Height + row3Height) / 2 + 6,
+            null,90
         );
         doc.rect(colX[15], row2Y, colX[16] - colX[15], row2Height + row3Height);
         doc.text(
@@ -360,31 +361,31 @@ const PDF = () => {
         const row3Y = headerY + row1Height + row2Height;
         // For Total Headcount group, subdivide "Child":
         doc.rect(colX[2], row3Y, colX[3] - colX[2], row3Height);
-        doc.text("Mal.", (colX[2] + colX[3]) / 2, row3Y + row3Height / 2 + 3, {
+        doc.text("Mal.", (colX[2] + colX[3]) / 2, row3Y + row3Height / 2 + 1, {
             align: "center",
         });
         doc.rect(colX[3], row3Y, colX[4] - colX[3], row3Height);
-        doc.text("Oth.", (colX[3] + colX[4]) / 2, row3Y + row3Height / 2 + 3, {
+        doc.text("Oth.", (colX[3] + colX[4]) / 2, row3Y + row3Height / 2 + 1, {
             align: "center",
         });
 
         // For Egg Cost group, subdivide "Child":
         doc.rect(colX[7], row3Y, colX[8] - colX[7], row3Height);
-        doc.text("Mal.", (colX[7] + colX[8]) / 2, row3Y + row3Height / 2 + 3, {
+        doc.text("Mal.", (colX[7] + colX[8]) / 2, row3Y + row3Height / 2 + 1, {
             align: "center",
         });
         doc.rect(colX[8], row3Y, colX[9] - colX[8], row3Height);
-        doc.text("Oth.", (colX[8] + colX[9]) / 2, row3Y + row3Height / 2 + 3, {
+        doc.text("Oth.", (colX[8] + colX[9]) / 2, row3Y + row3Height / 2 + 1, {
             align: "center",
         });
 
         // For Veg Cost group, subdivide "Child":
         doc.rect(colX[12], row3Y, colX[13] - colX[12], row3Height);
-        doc.text("Mal.", (colX[12] + colX[13]) / 2, row3Y + row3Height / 2 + 3, {
+        doc.text("Mal.", (colX[12] + colX[13]) / 2, row3Y + row3Height / 2 + 1, {
             align: "center",
         });
         doc.rect(colX[13], row3Y, colX[14] - colX[13], row3Height);
-        doc.text("Oth.", (colX[13] + colX[14]) / 2, row3Y + row3Height / 2 + 3, {
+        doc.text("Oth.", (colX[13] + colX[14]) / 2, row3Y + row3Height / 2 + 1, {
             align: "center",
         });
 
@@ -413,11 +414,11 @@ const PDF = () => {
         let sumMisc = 0,
             sumGrandTotal = 0;
 
-        const monthNumber = monthMapping[selectedMonth];
-        const daysInMonth = new Date(selectedYear, monthNumber, 0).getDate();
+        
+        const daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
 
         for (let day = 1; day <= daysInMonth; day++) {
-            const dateObj = new Date(selectedYear, monthNumber - 1, day);
+            const dateObj = new Date(selectedYear, selectedMonth - 1, day);
             const weekday = dateObj.getDay(); // 0=Sunday,...,6=Saturday
 
             // Determine if it's a holiday
